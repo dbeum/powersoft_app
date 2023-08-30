@@ -72,7 +72,7 @@ class _PayslipState extends State<Payslip> {
         final formattedAmountT = numberFormat.format(amountT);
         final formattedPayTypeBalancededuction =
             numberFormat.format(payTypeBalancededuction);
-
+        //g
         final pdf = pw.Document();
         pdf.addPage(
           pw.Page(
