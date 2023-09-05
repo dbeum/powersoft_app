@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'qr.dart';
 import 'login.dart';
 
 void main() {

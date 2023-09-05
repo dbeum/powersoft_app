@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'profile.dart';
 import 'reset.dart';
+import 'qr.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -28,20 +29,21 @@ class _LoginState extends State<Login> {
 
       if (response.statusCode == 200) {
         final userData = json.decode(response.body);
+        final data = userData['data'];
 
-        var employeeName = userData['data']['employeeName'];
-        var employeeId = userData['data']['employeeId'];
-        var employeeUserName = userData['data']['employeeUserName'];
-        var employeeDepartmentId = userData['data']['employeeDepartmentId'];
-        var employeeAddress1 = userData['data']['employeeAddress1'];
-        var employeeAddress2 = userData['data']['employeeAddress2'];
+        var employeeName = data['employeeName'];
+        var employeeId = data['employeeId'];
+        var employeeUserName = data['employeeUserName'];
+        var employeeDepartmentId = data['employeeDepartmentId'];
+        var employeeAddress1 = data['employeeAddress1'];
+        var employeeAddress2 = data['employeeAddress2'];
         if (employeeAddress2 == null) {
-          employeeAddress2 = userData['data']['employeeCity'];
+          employeeAddress2 = data['employeeCity'];
         }
-        var employeeCountry = userData['data']['employeeCountry'];
-        var employeeEmailAddress = userData['data']['employeeEmailAddress'];
-        var genderId = userData['data']['genderId'];
-        var statusId = userData['data']['statusId'];
+        var employeeCountry = data['employeeCountry'];
+        var employeeEmailAddress = data['employeeEmailAddress'];
+        var genderId = data['genderId'];
+        var statusId = data['statusId'];
 
         Navigator.push(
           context,
@@ -89,6 +91,9 @@ class _LoginState extends State<Login> {
       ),
       body: Stack(
         children: [
+          Container(
+            height: 900,
+          ),
           Positioned(
             top: 50,
             left: 90,
@@ -148,6 +153,18 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
+          Positioned(
+              top: 650,
+              child: TextButton(
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScanQrPage(),
+                      )),
+                  child: Icon(
+                    Icons.qr_code_2,
+                    size: 40,
+                  )))
         ],
       ),
     );
