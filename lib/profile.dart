@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'logout.dart';
 import 'payslip.dart';
+import 'Attendance.dart';
 
 class Profile extends StatefulWidget {
   final String? employeeName;
@@ -108,6 +109,25 @@ class _ProfileState extends State<Profile> {
                 },
                 child: Text(
                   'Payslip',
+                  style: TextStyle(fontSize: 10),
+                )),
+            //ATTENDANCE
+          ),
+          Container(
+            height: 30,
+            width: 80,
+            decoration: BoxDecoration(
+                border: Border.all(
+                    width: 2, color: Color.fromARGB(255, 45, 175, 229)),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            margin: EdgeInsets.only(left: 160, top: 200),
+            child: TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Attendance()));
+                },
+                child: Text(
+                  'Attendance',
                   style: TextStyle(fontSize: 10),
                 )),
           ),
