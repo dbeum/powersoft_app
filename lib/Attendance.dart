@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Attendance extends StatefulWidget {
-  const Attendance({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<Attendance> createState() => _AttendanceState();
+  State<MyApp> createState() => _MyAppState();
 }
-
-class _AttendanceState extends State<Attendance> {
+final List<String>items=List.generate(20, (index) => '');
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Attendance'),
-      ),
-      body: SingleChildScrollView(
-        child: Stack(children: [Text('coming')]),
-      ),
-    );
+      body:ListView.builder(
+      itemCount: items.length,
+      itemBuilder:
+      (context, index) {
+        return ListTile(
+       title:Text('j'),
+      );
+      }, ));
   }
 }

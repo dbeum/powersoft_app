@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'logout.dart';
 import 'payslip.dart';
 import 'Attendance.dart';
+import 'ListJ.dart';
 
 class Profile extends StatefulWidget {
   final String? employeeName;
@@ -37,6 +38,7 @@ class _ProfileState extends State<Profile> {
   final LogoutPage _authService = LogoutPage();
   @override
   Widget build(BuildContext context) {
+     
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -124,7 +126,7 @@ class _ProfileState extends State<Profile> {
             child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Attendance()));
+                      MaterialPageRoute(builder: (context) => MyHomePage(employeeId: widget.employeeId ?? '')));
                 },
                 child: Text(
                   'Attendance',
