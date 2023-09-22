@@ -126,7 +126,7 @@ class _ProfileState extends State<Profile> {
             child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage(employeeId: widget.employeeId ?? '')));
+                      MaterialPageRoute(builder: (context) =>ListPage(employeeId: widget.employeeId ?? '')));
                 },
                 child: Text(
                   'Attendance',

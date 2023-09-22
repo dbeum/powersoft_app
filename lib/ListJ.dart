@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 
 
 
-class MyHomePage extends StatelessWidget {
+class ListPage extends StatelessWidget {
    final String employeeId;
 
-    MyHomePage({required this.employeeId, Key? key}) : super(key: key);
+    ListPage({required this.employeeId, Key? key}) : super(key: key);
 
 
 Future<List<AttendanceData>> fetchAttendanceData(http.Client client) async {
