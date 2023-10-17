@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-
+import 'Attendance.dart';
+import 'location.dart';
 
 class ListPage extends StatelessWidget {
    final String employeeId;
@@ -29,7 +29,7 @@ Future<List<AttendanceData>> fetchAttendanceData(http.Client client) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('title'),
+        title: Text('Attendance'),
       ),
       body: FutureBuilder<List<AttendanceData>>(
         future: fetchAttendanceData(http.Client()),
@@ -43,7 +43,7 @@ Future<List<AttendanceData>> fetchAttendanceData(http.Client client) async {
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
-            return AttendanceList(data: snapshot.data!);
+            return AttendanceList(employeeId: employeeId,data: snapshot.data!);
           } else {
             return const Center(
               child: Text('No data available.'),
@@ -56,21 +56,10 @@ Future<List<AttendanceData>> fetchAttendanceData(http.Client client) async {
 }
 
 class AttendanceData {
-  final String companyId;
-  final String divisionId;
-  final String departmentId;
   final String attendanceDate;
   final String employeeId;
   final String timeIn;
   final bool absent;
-  final String remarks;
-  final String lockedBy;
-  final String lockTs;
-  final double latePeriod;
-  final String period;
-  final String shiftType;
-  final String expectedTimeIn;
-  final String branchCode;
   final bool clockedIn;
   final bool clockedOut;
   final String geolocationAddress;
@@ -80,21 +69,10 @@ class AttendanceData {
   final String geolocationAddress2;
 
   AttendanceData({
-    required this.companyId,
-    required this.divisionId,
-    required this.departmentId,
     required this.attendanceDate,
     required this.employeeId,
     required this.timeIn,
     required this.absent,
-    required this.remarks,
-    required this.lockedBy,
-    required this.lockTs,
-    required this.latePeriod,
-    required this.period,
-    required this.shiftType,
-    required this.expectedTimeIn,
-    required this.branchCode,
     required this.clockedIn,
     required this.clockedOut,
     required this.geolocationAddress,
@@ -106,21 +84,11 @@ class AttendanceData {
 
   factory AttendanceData.fromJson(Map<String, dynamic> json) {
     return AttendanceData(
-      companyId: json['companyId'] as String,
-      divisionId: json['divisionId'] as String,
-      departmentId: json['departmentId'] as String,
+     
       attendanceDate: json['attendanceDate'] as String,
       employeeId: json['employeeId'] as String,
       timeIn: json['timeIn'] as String,
       absent: json['absent'] as bool,
-      remarks: json['remarks'] as String,
-      lockedBy: json['lockedBy'] as String,
-      lockTs: json['lockTs'] as String,
-      latePeriod: json['latePeriod'] as double,
-      period: json['period'] as String,
-      shiftType: json['shiftType'] as String,
-      expectedTimeIn: json['expectedTimeIn'] as String,
-      branchCode: json['branchCode'] as String,
       clockedIn: json['clockedIn'] as bool,
       clockedOut: json['clockedOut'] as bool,
       geolocationAddress: json['geolocationAddress'] as String,
@@ -134,22 +102,62 @@ class AttendanceData {
 
 
 class AttendanceList extends StatelessWidget {
-  const AttendanceList({super.key, required this.data});
+  final String employeeId;
+
+ AttendanceList({required this.employeeId, required this.data, Key? key}) : super(key: key);
 
   final List<AttendanceData> data;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Scaffold (
+      body:Stack(
+       children:[ ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
         final attendance = data[index];
         return ListTile(
-          title: Text('Date: ${attendance.attendanceDate}'),
-          subtitle: Text('Employee ID: ${attendance.employeeId}'),
+          title: Text('Date & Time In: ${attendance.attendanceDate}'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 8), // Add some space between title and subtitles
+              Row(
+                children: [
+                  Text('Clocked In: ${attendance.clockedIn}',style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(width: 16), // Add space between clocked in and clocked out text
+                  Text('Clocked Out: ${attendance.clockedOut}',style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+              SizedBox(height: 8), // Add space between clocked in/out and lat&long text
+              Text('Adress: ${attendance.geolocationAddress2}'),
+              Container(
+              width: 2, // Increase the width to make it more visible
+      
+      height: 20, // Set a height for the vertical line
+
+              )
+            ],
+            
+          ),
+           
+          
+          
           // Add more fields as needed
         );
       },
+    ),
+    Positioned(
+      top: 600,
+      left: 300,
+      child: FloatingActionButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => 
+      //Attendance(employeeId: employeeId))
+      Locator(employeeId: employeeId,))
     );
+    },child: Icon(Icons.add))
+      )]
+    )
+    );
+
   }
 }
