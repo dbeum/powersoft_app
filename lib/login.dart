@@ -13,10 +13,22 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+ //bool isLoading=true;
+
+
+
+
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login() async {
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(child: CircularProgressIndicator());
+      },
+    );
     String username = _usernameController.text;
     String password = _passwordController.text;
 
@@ -30,8 +42,8 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         final userData = json.decode(response.body);
         final data = userData['data'];
-
-        var employeeName = data['employeeName'];
+   
+        var  employeeName = data['employeeName'];
         var employeeId = data['employeeId'];
         var employeeUserName = data['employeeUserName'];
         var employeeDepartmentId = data['employeeDepartmentId'];
@@ -40,10 +52,13 @@ class _LoginState extends State<Login> {
         if (employeeAddress2 == null) {
           employeeAddress2 = data['employeeCity'];
         }
-        var employeeCountry = data['employeeCountry'];
-        var employeeEmailAddress = data['employeeEmailAddress'];
-        var genderId = data['genderId'];
-        var statusId = data['statusId'];
+       var  employeeCountry = data['employeeCountry'];
+       var  employeeEmailAddress = data['employeeEmailAddress'];
+       var  genderId = data['genderId'];
+       var  statusId = data['statusId'];
+
+         // isLoading=false;
+ 
 
         Navigator.push(
           context,
@@ -143,7 +158,7 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: Color.fromARGB(255, 45, 175, 229)),
             margin: EdgeInsets.only(top: 500, left: 140),
-            child: TextButton(
+            child:TextButton(
               onPressed: () {
                 _login();
               },

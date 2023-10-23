@@ -63,8 +63,8 @@ class _AttendanceState extends State<Attendance> {
   //  String latitude = currentPosition.latitude.toString();
     //String longitude = currentPosition.longitude.toString();
 
-    String Date = formattedDate(); 
-  String Time = formattedTime();
+    //String Date = formattedDate(); 
+  //String Time = formattedTime();
 
     final String apiUrl='http://198.154.112.5/PEApi/api/AddAttendance/741258?';
 
@@ -78,26 +78,26 @@ class _AttendanceState extends State<Attendance> {
       "CompanyId": "string",
       "DivisionId": "string",
       "DepartmentId": "string",
-      "AttendanceDate": Date,
+      "AttendanceDate": formattedDate(),
       "EmployeeId": widget.employeeId,
       "TimeIn":   formattedTime(),
-      "Absent": true,
+      "Absent": false,
       "Remarks": "string",
       "LockedBy": "string",
-      "LockTs": Date,
+      "LockTs": formattedDate(),
       "LatePeriod": 0,
-      "Period": Date,
+      "Period": formattedDate(),
       "ShiftType": "string",
       "ExpectedTimeIn": "8:30",
       "BranchCode": "string",
-      "ClockOutTimeOut":  Date,
+      "ClockOutTimeOut":  formattedDate(),
       "AttendanceStatus": "string",
       "ClockedIn": true,
-      "ClockedOut": true,
+      "ClockedOut": false,
       "GeolocationAddress": "string",
       "GeoLongitude": widget.longitude,
       "GeoLatitude": widget.latitude,
-      "SystemDate": Date,
+      "SystemDate": formattedDate(),
       "GeolocationAddress2": widget.Address
     };
     final String bearerToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBDTU4vMDA4MCIsIm5iZiI6MTY5NTY0OTI0NywiZXhwIjoxNjk4MjQxMjQ3LCJpYXQiOjE2OTU2NDkyNDd9.3anwQ1MQSsj_1amjKAYlAj061Bi95ZX25RrsWkO14Yw';

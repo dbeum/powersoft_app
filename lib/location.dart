@@ -55,6 +55,12 @@ class _LocatorState extends State<Locator> {
   }
 
   Future<void> GetAddressFromLatLong(Position position)async {
+     showDialog(
+      context: context,
+      builder: (context) {
+        return Center(child: CircularProgressIndicator());
+      },
+    );
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);
     Placemark place = placemarks[0];

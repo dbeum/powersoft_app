@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'Attendance.dart';
 import 'location.dart';
+import 'exp-attendance.dart';
+
 
 class ListPage extends StatelessWidget {
    final String employeeId;
@@ -14,7 +16,7 @@ class ListPage extends StatelessWidget {
 
 Future<List<AttendanceData>> fetchAttendanceData(http.Client client) async {
   final response = await client.get(Uri.parse('http://198.154.112.5/PEApi/api/GetAttendanceByEmployee/741258?EmployeeID=$employeeId'),
-  headers: {'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBDTU4vMDA3MCIsIm5iZiI6MTY5NTMwOTQ4NywiZXhwIjoxNjk3OTAxNDg3LCJpYXQiOjE2OTUzMDk0ODd9.VZJ-nxs3h3dBVeDqHQLRdj0I49ysMaayl5dD2oAAT_c'}
+  headers: {'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBDTU4vMDA3MCIsIm5iZiI6MTY5ODA0OTE2NCwiZXhwIjoxNzAwNjQxMTY0LCJpYXQiOjE2OTgwNDkxNjR9.AUDZ_1LoYBGjXC3ad6h-8KuKj22L3wpWsllj-rM2Kc4'}
   );
 
   if (response.statusCode == 200) {
@@ -117,6 +119,9 @@ class AttendanceList extends StatelessWidget {
       itemBuilder: (context, index) {
         final attendance = data[index];
         return ListTile(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Exp(attendanceData: attendance),));
+          },
           title: Text('Date & Time In: ${attendance.attendanceDate}'),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
