@@ -1,3 +1,4 @@
 # powersoft_app
 
-A new Flutter project.
+An Employee Management app for Powersoft Integrated Solutions
+
